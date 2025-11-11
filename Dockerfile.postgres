@@ -1,0 +1,23 @@
+# Use the official PostgreSQL image
+FROM postgres:15-alpine
+
+# Set environment variables
+ENV POSTGRES_DB=mydatabase
+ENV POSTGRES_USER=myuser
+ENV POSTGRES_PASSWORD=mypassword
+
+# Add custom postgresql.conf for configuration
+COPY postgresql.conf /etc/postgresql/postgresql.conf
+
+# Add custom initialization script
+# COPY init-db.sql /docker-entrypoint-initdb.d/
+
+# Expose the PostgreSQL port
+EXPOSE 55432
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
+  CMD pg_isready -U myuser -d mydatabase
+
+# Start PostgreSQL with custom configuration
+CMD ["postgres", "-c", "config_file=/etc/postgresql/postgresql.conf"]

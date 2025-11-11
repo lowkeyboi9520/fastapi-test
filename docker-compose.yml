@@ -1,0 +1,27 @@
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: Dockerfile.postgres
+    container_name: postgres_container
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+    ports:
+      - "55432:55432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgresql.conf:/etc/postgresql/postgresql.conf
+      # - ./init-db.sql:/docker-enWtrypoint-initdb.d/init-db.sql
+    networks:
+      - postgres_network
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  postgres_network:
+    driver: bridge

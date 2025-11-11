@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip install:*)",
+      "Bash(tree:*)",
+      "Bash(python:*)",
+      "Bash(copy:*)",
+      "Bash(find:*)",
+      "Bash(docker-compose up:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
